@@ -1,6 +1,3 @@
-//Este archivo se encuentra en SRC debido a que por algun motivo no podia importar Juego.java a otras carpetas como managers por ejemplo
-
-import models.Ubicacion;
 import models.Enemigo;
 import ui.Interfaz;
 
@@ -13,15 +10,14 @@ public class ControladorAcciones {
         this.interfaz = interfaz;
     }
 
-    public void procesarAccion( String opcion ) {
-        //Se intento seguir la plantilla propuesta en el issue
+    public void procesarAccion(String opcion) {
         switch (opcion) {
             case "e":
-                Ubicacion nuevUbicacion = juego.explorarUbicacion();
+                juego.explorarUbicacion();
                 break;
             case "l":
                 Enemigo enemigo = juego.getGestorCombate().getEnemigoEnUbicacionActual();
-                if (enemigo!= null) {
+                if (enemigo != null) {
                     juego.luchar(enemigo);
                 }
                 break;
@@ -30,34 +26,43 @@ public class ControladorAcciones {
                 interfaz.mostrarMensaje(resultadoMapa);
                 break;
             }
-            case "m":{
+            case "m": {
                 String resultadoMovimiento = juego.moverJugador();
                 interfaz.mostrarMensaje(resultadoMovimiento);
                 break;
             }
-            case "i":{
+            case "i": {
                 interfaz.mostrarInventario();
                 break;
             }
-            case "r":{
-                boolean itemRecogido = juego.recogerItem();
+            case "r": {
+                if (juego.recogerItem()) {
+                    interfaz.mostrarMensaje("Item recogido con éxito.");
+                } else {
+                    interfaz.mostrarMensaje("No se pudo recoger el item.");
+                }
                 break;
             }
-            case "d":{
-                boolean itemDejado = juego.dejarItem();
+            case "d": {
+                if (juego.dejarItem()) {
+                    interfaz.mostrarMensaje("Item dejado con éxito.");
+                } else {
+                    interfaz.mostrarMensaje("No se pudo dejar el item.");
+                }
                 break;
             }
-            case "u":{
+            case "u": {
                 String resultadoUso = juego.usarItem();
+                interfaz.mostrarMensaje(resultadoUso);
                 break;
             }
-            case "s":{
+            case "s": {
                 String mensajeDespedida = "Gracias por jugar!";
                 interfaz.mostrarMensaje(mensajeDespedida);
                 System.exit(0);
                 break;
             }
-            default:{
+            default: {
                 String mensajeError = "Opción no válida";
                 interfaz.mostrarMensaje(mensajeError);
             }

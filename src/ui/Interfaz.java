@@ -14,7 +14,7 @@ public class Interfaz {
     }
 
     public void actualizarPantalla() {
-        System.out.println("\n".repeat(50));
+        System.out.println(repeat("\n", 50));
         mostrarInfoJugador();
         mostrarUbicacionActual();
         mostrarOpciones();
@@ -90,5 +90,13 @@ public class Interfaz {
         }
         System.out.print("Presioná ENTER para continuar...");
         scanner.nextLine();
+    }
+
+    private String repeat(String str, int count) {
+        StringBuilder repeated = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            repeated.append(str);
+        }
+        return repeated.toString();
     }
 }
